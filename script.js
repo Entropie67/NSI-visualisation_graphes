@@ -22,6 +22,8 @@ let network = new vis.Network(container, data, options);
 // -----------------------------------------------
 // -----------------------------------------------
 
+// DOCUMENTATION :  https://almende.github.io/vis/docs/network/
+
 let matrice = [
     [0, 1, 0, 0],
     [1, 1, 1, 1],
@@ -72,6 +74,18 @@ network.on("click", function(data)
 {
     if(data.nodes.length > 0)
     {
-        alert(data.nodes[0]);
+        let nodeID = data.nodes[0];
+        let clickedNode = nodes.get(nodeID);
+        clickedNode.color = {
+            border: '#000000',
+            background: '#000000',
+            highlight: {
+                border: '#2B7CE9',
+                background: '#D2E5FF'
+            }
+        }
+        nodes.update(clickedNode);
     }
 });
+
+
