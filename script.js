@@ -7,7 +7,12 @@ let data = {
     nodes: nodes,
     edges: edges
 };
-let options = {};
+let options = {
+    physics:{
+        enabled: true,              // Rend actif la physique
+        solver: 'repulsion'         // Type de force 'repulsion'
+    },
+};
 
 let network = new vis.Network(container, data, options);
 
@@ -61,3 +66,12 @@ let matriceToGraphe = m => {
 
 // lancement de la fonction
 matriceToGraphe(matrice);
+
+// Evennement au clic sur un noeud:
+network.on("click", function(data)
+{
+    if(data.nodes.length > 0)
+    {
+        alert(data.nodes[0]);
+    }
+});
