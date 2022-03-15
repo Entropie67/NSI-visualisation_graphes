@@ -32,21 +32,31 @@ let matriceToGraphe = m => {
         nodes.add([
             {
                 id: i,
-                label: (i+1).toString()
+                label: (i+1).toString(),
+                color: "#DA70D6"
             }
         ]);
-    };
+    }
+    // Double boucle pour parcourir la matrice.
+    for (let j=0; j<n; j++) {
+        for (let k=0; k<n; k++){
+            // Si c'est un 1 je rajoute un edge
+            if (m[j][k] == 1) {
+                edges.add(
+                    [
+                        {
+                            from: j,
+                            to: k,
+                            color : {
+                                color: "#FF0000"
+                            }
 
-    /*
-    edges.add(
-        [
-            {
-                from: 1,
-                to: 2,
-                label: "E1",
+                        }
+                    ]
+                );
             }
-        ]
-    );*/
+        }
+    }
 }
 
 // lancement de la fonction
