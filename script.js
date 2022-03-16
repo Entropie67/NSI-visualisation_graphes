@@ -84,8 +84,30 @@ network.on("click", function(data)
                 background: '#D2E5FF'
             }
         }
+        clickedNode.font = {
+            color: '#FFF'
+        }
         nodes.update(clickedNode);
+        bfs(nodeID);
     }
 });
 
+// Fonction qui changer la couleur d'un tableau de noeud :
+const changeCouleur = tab => {
+    for (const noeud of tab){
+        let Node = nodes.get(noeud);
+        Node.color = {
+            background: '#F0E68C'
+        }
+        nodes.update(Node);
+    }
+}
 
+const bfs = ID => {
+    // Info sur le noeud en question
+    let voisins = network.getConnectedNodes(ID);
+    // Voisins est un tableau de noeuds.
+    console.log(`Vous avez selectionné le noeud d'ID : ${ID}`);
+    // Ici nous allons dérouler l'algo bfs
+    changeCouleur(voisins);
+}
