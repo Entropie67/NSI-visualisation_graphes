@@ -123,8 +123,7 @@ const bfs = ID => {
     console.log(`Vous avez selectionné le noeud d'ID : ${ID}`);
     // Ici nous allons dérouler l'algo bfs
     let visite = []; // Les noeuds visités
-    let aVisite = [] // Les noeuds à visiter.
-    aVisite.push(ID) // On push le noeud
+    let aVisite = [ID]; // Les noeuds à visiter.
 
     while (aVisite.length != 0){
         ID = aVisite.shift();
@@ -143,5 +142,6 @@ const bfs = ID => {
             }
         }
         visite.push(ID); // Id est visite
+        ID = aVisite.shift();
     }
 }
