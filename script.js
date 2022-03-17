@@ -119,22 +119,22 @@ const changeVisite = ID => {
 }
 const bfs = ID => {
 
-    // Voisins est un tableau de noeuds.
-    console.log(`Vous avez selectionné le noeud d'ID : ${ID}`);
     // Ici nous allons dérouler l'algo bfs
     let visite = []; // Les noeuds visités
     let aVisite = [ID]; // Les noeuds à visiter.
 
     while (aVisite.length != 0){
         ID = aVisite.shift();
-        console.log(`Le noeaud courant est ${ID}`);
+        console.log(`Le noeud courant est ${ID}`);
         console.log(`Les noeuds a visiter sont : ${aVisite}`);
         console.log(`Les noeuds visites sont : ${visite}`);
         let voisins = network.getConnectedNodes(ID);
+
         console.log(`Les voisins de ${ID} sont : ${voisins}`);
         changeCouleur(voisins);
         changeVisite(ID);
         for (v in voisins){
+            console.log(v);
             if (visite.includes(v)){
                 console.log(`Déjà visité ${v}`);
             }else{
