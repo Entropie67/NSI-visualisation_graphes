@@ -131,17 +131,18 @@ const bfs = ID => {
         let voisins = network.getConnectedNodes(ID);
 
         console.log(`Les voisins de ${ID} sont : ${voisins}`);
+        console.log(voisins);
         changeCouleur(voisins);
         changeVisite(ID);
-        for (v in voisins){
+        for (v of voisins){
             console.log(v);
             if (visite.includes(v)){
                 console.log(`Déjà visité ${v}`);
             }else{
+                console.log(v)
                 aVisite.push(v);
             }
         }
         visite.push(ID); // Id est visite
-        ID = aVisite.shift();
     }
 }
