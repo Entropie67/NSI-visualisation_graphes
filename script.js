@@ -128,18 +128,19 @@ const bfs = ID => {
 
     while (aVisite.length != 0){
         ID = aVisite.shift();
-        console.log(`Les noeuds à visiter sont : ${aVisite}`);
-        console.log(`Les noeuds visités sont : ${visite}`);
+        console.log(`Le noeaud courant est ${ID}`);
+        console.log(`Les noeuds a visiter sont : ${aVisite}`);
+        console.log(`Les noeuds visites sont : ${visite}`);
         let voisins = network.getConnectedNodes(ID);
         changeCouleur(voisins);
         changeVisite(ID);
-        visite.push(ID); // Id est visite
-        for (voisin in voisins){
-            if (visite.includes(voisin)){
-                console.log("Déjà visité");
+        for (v in voisins){
+            if (visite.includes(v)){
+                console.log(`Déjà visité ${v}`);
             }else{
-                aVisite.push(voisin);
+                aVisite.push(v);
             }
         }
+        visite.push(ID); // Id est visite
     }
 }
