@@ -127,13 +127,19 @@ const bfs = ID => {
     aVisite.push(ID) // On push le noeud
 
     while (aVisite.length != 0){
+        ID = aVisite.shift();
         console.log(`Les noeuds à visiter sont : ${aVisite}`);
         console.log(`Les noeuds visités sont : ${visite}`);
         let voisins = network.getConnectedNodes(ID);
         changeCouleur(voisins);
         changeVisite(ID);
-        ID = visite.shift()
-        visite.push(ID); // on enlège le noeud
-        aVisite.push(...voisins); // J'ajoute les voisins dans à visiter
+        visite.push(ID); // Id est visite
+        for (voisin in voisins){
+            if (visite.includes(voisin)){
+                console.log("Déjà visité");
+            }else{
+                aVisite.push(voisin);
+            }
+        }
     }
 }
