@@ -25,10 +25,15 @@ let network = new vis.Network(container, data, options);
 // DOCUMENTATION :  https://almende.github.io/vis/docs/network/
 
 let matrice = [
-    [0, 1, 0, 0],
-    [1, 1, 1, 1],
-    [0, 1, 0, 1],
-    [0, 1, 1, 0]
+    [0, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 // Cette fonction 'transforme' une matrice m en graphe
 let matriceToGraphe = m => {
@@ -102,12 +107,33 @@ const changeCouleur = tab => {
         nodes.update(Node);
     }
 }
-
+const changeVisite = ID => {
+    let Node = nodes.get(ID);
+    Node.color = {
+        background: '#000'
+    }
+    Node.font = {
+        color: '#FFF'
+    }
+    nodes.update(Node);
+}
 const bfs = ID => {
-    // Info sur le noeud en question
-    let voisins = network.getConnectedNodes(ID);
+
     // Voisins est un tableau de noeuds.
     console.log(`Vous avez selectionné le noeud d'ID : ${ID}`);
     // Ici nous allons dérouler l'algo bfs
-    changeCouleur(voisins);
+    let visite = []; // Les noeuds visités
+    let aVisite = [] // Les noeuds à visiter.
+    aVisite.push(ID) // On push le noeud
+
+    while (aVisite.length != 0){
+        console.log(`Les noeuds à visiter sont : ${aVisite}`);
+        console.log(`Les noeuds visités sont : ${visite}`);
+        let voisins = network.getConnectedNodes(ID);
+        changeCouleur(voisins);
+        changeVisite(ID);
+        ID = visite.shift()
+        visite.push(ID); // on enlège le noeud
+        aVisite.push(...voisins); // J'ajoute les voisins dans à visiter
+    }
 }
