@@ -10,7 +10,7 @@ let data = {
 let options = {
     physics:{
         enabled: true,              // Rend actif la physique
-        solver: 'repulsion'         // Type de force 'repulsion'
+        solver: 'forceAtlas2Based'         // Type de force 'repulsion'
     },
 };
 
@@ -97,16 +97,6 @@ network.on("click", function(data)
     }
 });
 
-// Fonction qui changer la couleur d'un tableau de noeud :
-const changeCouleur = tab => {
-    for (const noeud of tab){
-        let Node = nodes.get(noeud);
-        Node.color = {
-            background: '#F0E68C'
-        }
-        nodes.update(Node);
-    }
-}
 const changeVisite = ID => {
     let Node = nodes.get(ID);
     Node.color = {
@@ -117,30 +107,35 @@ const changeVisite = ID => {
     }
     nodes.update(Node);
 }
-const bfs = ID => {
+const bfs = async ID => {
 
     // Ici nous allons dérouler l'algo bfs
     let visite = []; // Les noeuds visités
     let aVisite = [ID]; // Les noeuds à visiter.
-
-    while (aVisite.length != 0){
-        ID = aVisite.shift();
-        console.log(`Le noeud courant est ${ID}`);
-        console.log(`Les noeuds a visiter sont : ${aVisite}`);
-        console.log(`Les noeuds visites sont : ${visite}`);
-        let voisins = network.getConnectedNodes(ID);
-        console.log(`Les voisins de ${ID} sont : ${voisins}`);
-        changeCouleur(voisins);
-        changeVisite(ID);
-        for (v of voisins){
-            console.log(v);
-            if ((visite.includes(v)) || (aVisite.includes(v))){
-                console.log(`Déjà visité ${v}`);
-            }else{
-                aVisite.push(v);
-            }
+    while (aVisite.length != 0)
+    {
+            ID = aVisite.shift();
+            let voisins = network.getConnectedNodes(ID);
+            console.log(`Noeud : ${ID}, voisins: ${voisins}, Deja visite : ${visite}`);
+            await pause(ID);
+            changeVisite(ID);
+            for(v of voisins)
+            {
+                if ((visite.includes(v)) || (aVisite.includes(v)))
+                {
+                    console.log(`Déjà visité ${v}`);
+                } else
+                {
+                    aVisite.push(v);
+                }
         }
         visite.push(ID); // Id est visite
-
     }
+}
+
+const pause = id => {
+    return new Promise(resolve => setTimeout(() => {
+        console.log(`pause ${id} is over`);
+        resolve();
+    }, 1000));
 }
